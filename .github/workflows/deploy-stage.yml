@@ -1,9 +1,9 @@
 name: Deploy to Staging
 
-# Runs when code is pushed to staging (e.g. when a PR is merged into staging).
-# Rely on branch protection "Require status checks to pass" so merge only happens after CI passed.
+# Runs only when a PR is merged into staging (not on every push to staging).
 on:
-  push:
+  pull_request:
+    types: [closed]
     branches: [staging]
   workflow_dispatch:
 
@@ -16,10 +16,13 @@ jobs:
     name: Build Application
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && github.ref || github.event.pull_request.base.ref }}
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
