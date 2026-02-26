@@ -124,7 +124,7 @@ jobs:
 
           if [[ "${{ needs.lint.result }}" == "failure" ]] || 
              [[ "${{ needs.typecheck.result }}" == "failure" ]] || 
-             [[ "${{ needs.build.result }}" == "failure" ]] || 
+             [[ "${{ needs.build.result }}" == "failure" ]]; then
             echo "❌ CI Failed"
             exit 1
           else
