@@ -30,7 +30,7 @@ jobs:
     name: Build Application
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    needs: [lint, typecheck]
+    needs: [check-ci]
 
     steps:
       - name: Checkout code
