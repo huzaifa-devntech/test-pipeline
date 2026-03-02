@@ -41,6 +41,12 @@ jobs:
             "https://api.github.com/repos/${REPO}/pulls/${PR_NUMBER}/reviews" \
             | jq -r '[.[] | select(.state=="APPROVED")] | length')
 
+          if [ "$HAS_LABEL" -gt 0 ] && [ "$APPROVED" -gt 0 ]; then
+            echo "is_ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "is_ready=false" >> "$GITHUB_OUTPUT"
+          fi
+
   lint:
     name: Lint & Format Check
     runs-on: ubuntu-latest
