@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     needs: check-ready
-    if: steps.check-ready.outputs.is_ready == 'true'
+    if: needs.check-ready.outputs.is_ready == 'true'
 
     steps:
       - name: Checkout code
