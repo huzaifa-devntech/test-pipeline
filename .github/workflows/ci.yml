@@ -3,9 +3,9 @@ name: CI - Continuous Integration
 on:
   pull_request:
     branches: [development, staging, main]
+    types: [opened, reopened, synchronize, labeled, unlabeled]
   pull_request_review:
     types: [submitted]
-  # No push trigger = CI runs only once (when PR is opened/updated), not again on merge
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
